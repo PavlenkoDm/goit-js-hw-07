@@ -29,22 +29,20 @@ function onGalleryItemClick(event) {
     if (event.target.nodeName !== "IMG") return;    
 
     const instance = basicLightbox.create(`
-        <div class="modal">
-            <img src=${event.target.dataset.source} width="800">
-        </div>
+        <img src=${event.target.dataset.source} width="800">
     `);
 
     instance.show();
-    // // Close lightbox when clicking the background
-	// if (opts.closable === true) elem.addEventListener('click', (e) => {
 
-	// 	// If e.target is not the same element as elem,
-	// 	// then the user clicked a descendant of the element.
-	// 	if (e.target !== elem) return
+    document.addEventListener("keydown", onEscapePress);
+    
+    function onEscapePress(event) {
+        if (event.code !== "Escape") return;
+        
+        document.removeEventListener("keydown", onEscapePress);
 
-	// 	// Close lightbox with the instance function
-	// 	_close()
-
-	// })
+        instance.close();
+    }
 }
-// console.log(galleryItems);
+
+
